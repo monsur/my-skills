@@ -5,12 +5,11 @@
 
 ## Summary
 
-Personal Claude Code skills symlinked from `~/.claude/skills`. Provides `/note` and `/recap` for capturing session insights and generating Bluesky thread recaps via Threadweaver.
+Personal Claude Code skills symlinked from `~/.claude/skills`. Provides `/note`, `/recap`, and `/wrap` for capturing session insights, generating Bluesky thread recaps, and closing out STATUS.md at end of session.
 
 ## Last Session
 
-- Migrated project to Claude Projects format
-- Updated STATUS.md with coordinator template
+- Added `/wrap` skill for closing out STATUS.md at end of a session
 
 ## Next
 
