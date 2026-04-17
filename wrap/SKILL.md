@@ -33,3 +33,5 @@ The user wants to wrap up their work session. Using the context above — sessio
 3. Once confirmed, use the Edit tool to write the changes to STATUS.md.
 
 Be concise. Don't pad Last Session with obvious things. One sharp bullet beats three vague ones.
+
+After writing STATUS.md, remind the user to run `./scripts/sync.sh` from their `_projects` directory to update the dashboard.
