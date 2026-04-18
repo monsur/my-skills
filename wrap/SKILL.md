@@ -34,4 +34,4 @@ The user wants to wrap up their work session. Using the context above — sessio
 
 Be concise. Don't pad Last Session with obvious things. One sharp bullet beats three vague ones.
 
-After writing STATUS.md, remind the user to run `./scripts/sync.sh` from their `_projects` directory to update the dashboard.
+After writing STATUS.md, remind the user to run `./scripts/sync-local.sh` from their `_projects` directory to update the dashboard.
