@@ -1,15 +1,35 @@
 ---
 name: idea
-description: Capture an idea to ideas.md in the monsur/_projects GitHub repo. Usage: /idea <your idea>
-allowed-tools: mcp__github__get_file_contents, mcp__github__create_or_update_file
+description: Capture an idea to IDEAS.md in the monsur/_projects GitHub repo. Usage: /idea <your idea>
+allowed-tools: Bash
 ---
 
 The user wants to capture this idea: "$ARGUMENTS"
 
-Append it to `ideas.md` in the `monsur/_projects` GitHub repo on the `main` branch. Follow these steps:
+First, check if `gh` is installed and authenticated:
 
-1. Use `mcp__github__get_file_contents` to fetch `ideas.md` from owner=`monsur`, repo=`_projects`, and note its `sha` and current `content` (base64-decoded).
-2. Append a new line to the content: `- YYYY-MM-DD $ARGUMENTS` (use today's date).
-3. Use `mcp__github__create_or_update_file` to write the updated content back, providing the `sha` from step 1, with commit message: `idea: $ARGUMENTS`
+```bash
+command -v gh &>/dev/null && gh auth status &>/dev/null
+```
+
+If that fails, tell the user which part is missing and give them the relevant setup instructions:
+
+- **`gh` not installed:** Install via `brew install gh` (macOS) or https://cli.github.com
+- **Not authenticated:** Run `gh auth login` and follow the prompts to authenticate with GitHub
+
+If `gh` is ready, append the idea to `IDEAS.md` in `monsur/_projects` by running these commands:
+
+```bash
+IDEA="$ARGUMENTS"
+RESPONSE=$(gh api repos/monsur/_projects/contents/IDEAS.md)
+SHA=$(echo "$RESPONSE" | jq -r '.sha')
+CURRENT=$(echo "$RESPONSE" | jq -r '.content' | base64 -d)
+NEW_CONTENT="${CURRENT}"$'\n'"- $(date '+%Y-%m-%d'): ${IDEA}"
+gh api repos/monsur/_projects/contents/IDEAS.md \
+  --method PUT \
+  --field message="idea: ${IDEA}" \
+  --field "content=$(echo -n "$NEW_CONTENT" | base64 | tr -d '\n')" \
+  --field sha="$SHA"
+```
 
 After saving, confirm in one short line: echo the idea back so the user can verify it was captured.
