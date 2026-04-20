@@ -21,10 +21,18 @@ From `$ARGUMENTS`, derive a concise Title Case name (e.g. "A tool to sync Readwi
 
 **Step 3: Append to IDEAS.md and push**
 
-Compute today's date, substitute `{Title}` and `{Description}` with the values from Step 2, then run:
+Compute today's date, substitute `{Title}`, `{YYYY-MM-DD}`, and `{Description}` with the values from Step 2, then run:
 
 ```bash
-printf '\n## {Title}\n*Captured: {YYYY-MM-DD}*\n\n{Description}\n\n---\n' >> IDEAS.md
+cat >> IDEAS.md << 'IDEA_END'
+
+## {Title}
+*Captured: {YYYY-MM-DD}*
+
+{Description}
+
+---
+IDEA_END
 git add IDEAS.md && git commit -m "idea: {Title}" && git push
 ```
 
